@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Will You Be My Valentine? 💝</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            overflow: hidden; 
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            position: relative;
+            z-index: 10; 
+        }
+        h1 {
+            color: #ff4757;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .question {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .btn {
+            padding: 12px 30px;
+            margin: 0 10px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease; 
+        }
+        .btn.yes {
+            background-color: #ff6b6b;
+            color: white;
+        }
+        .btn.no {
+            background-color: #6c757d;
+            color: white;
+            transition: 0.1s; /* Fast transition for movement */
+        }
+        .btn:hover {
+            transform: scale(1.05);
+        }
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float 10s infinite ease-in-out;
+            opacity: 0.7;
+            z-index: 1;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-100px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Will You Be My Valentine Forever?</h1>
+        <p class="question">I hope I am the only one, you want to fall in love with, every single day❤️</p>
+        <button class="btn yes" onclick="showYes()">Yes</button>
+        <button class="btn no no-btn" onclick="showNo()">No</button>
+    </div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 10 + 5 + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 15000);
+        }
+        setInterval(createHeart, 350);
+
+        function showYes() {
+            // alert("Yay! I knew you would say yes! 💖");
+            document.querySelector(".container").innerHTML = `
+                <h1>Yay! I'm the luckiest girl on this planet...</h1>
+                <h1>I Love you Anka</h1>
+                <div style="font-size: 40px;">💋❤️💕</div>
+            `;
+        }
+
+        /* --- "No" Button Logic --- */
+        const noBtn = document.querySelector('.no-btn');
+
+        function moveButton() {
+            // Get the current dimensions of the browser window
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+
+            // Get the dimensions of the button itself
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+
+            // Calculate the maximum allowed X and Y positions
+            // We subtract the button size so it doesn't hang off the edge
+            // We subtract an extra 20px just for a nice safety margin
+            const maxX = windowWidth - btnWidth - 20;
+            const maxY = windowHeight - btnHeight - 20;
+
+            // Generate random positions within these safe boundaries
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+
+            // Apply 'fixed' position so it works relative to the screen (viewport)
+            // ensuring it ignores the parent container boundaries
+            noBtn.style.position = "fixed";
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+            
+            // Ensure it stays on top of everything
+            noBtn.style.zIndex = "100";
+        }
+
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', moveButton);
+
+        function showNo() {
+            const confirmNo = confirm("Oh, how the heart yearns for your presence... Please reconsider?");
+            if (confirmNo) {
+                alert("Wooohooooo! Thank you.");
+                showYes(); 
+            } else {
+                alert("Say yes you stupid!!! 😤");
+            }
+        }
+    </script>
+</body>
+</html>
